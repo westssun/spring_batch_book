@@ -3,18 +3,23 @@ package com.example.springbatch;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.job.CompositeJobParametersValidator;
+import org.springframework.batch.core.job.DefaultJobParametersValidator;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 @EnableBatchProcessing /* 배치 잡에 필요한 인프라스트럭처를 제공 */
@@ -75,7 +80,44 @@ public class SpringBatchApplication {
         /* get 메서드를 호출하면서 잡 이름을 전달하면 JobBuilder 을 얻을 수 있다. */
         return this.jobBuilderFactory.get("job")
                 .start(step())
+                .validator(validator()) /* 검증 추가 */
                 .build(); /* 실제 잡 생성 */
+    }
+
+    /**
+     * 필수 파라미터 누락을 확인하는 유효성 검증기 (기본적으로 제공되는 유효성체크)
+     * 유효성 검증기 구성에 사용하는 JobBuilder 의 메서드는 하나의 JobParameterValidator 인스턴스만 저장한다.
+     * 이를 해결하기 위해 아래 CompositeJobParametersValidator 을 사용한다.
+     * @return
+     */
+//    @Bean
+//    public JobParametersValidator validator() {
+//        DefaultJobParametersValidator validator = new DefaultJobParametersValidator();
+//
+//        validator.setRequiredKeys(new String[] {"fileName"}); /* 필수 파라미터 */
+//        validator.setOptionalKeys(new String[] {"name"}); /* 필수 아닌 파라미터 */
+//
+//        return validator;
+//    }
+
+    @Bean
+    public CompositeJobParametersValidator validator() {
+        CompositeJobParametersValidator validator
+                    = new CompositeJobParametersValidator();
+
+        DefaultJobParametersValidator defaultJobParametersValidator
+                    = new DefaultJobParametersValidator(
+                            new String[] {"fileName"},
+                            new String[] {"name"}
+        );
+
+        defaultJobParametersValidator.afterPropertiesSet();
+
+        validator.setValidators(
+                Arrays.asList(new ParameterValidator(), defaultJobParametersValidator)
+        );
+
+        return validator;
     }
 
     public static void main(String[] args) {
