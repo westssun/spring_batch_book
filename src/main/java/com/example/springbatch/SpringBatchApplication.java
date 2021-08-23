@@ -12,6 +12,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.CompositeJobParametersValidator;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -81,6 +82,7 @@ public class SpringBatchApplication {
         return this.jobBuilderFactory.get("job")
                 .start(step())
                 .validator(validator()) /* 검증 추가 */
+                .incrementer(new DailyJobTimestamper()) /* 파라미터 자동 증가 */
                 .build(); /* 실제 잡 생성 */
     }
 
@@ -108,7 +110,7 @@ public class SpringBatchApplication {
         DefaultJobParametersValidator defaultJobParametersValidator
                     = new DefaultJobParametersValidator(
                             new String[] {"fileName"},
-                            new String[] {"name"}
+                            new String[] {"name", "currentDate"}
         );
 
         defaultJobParametersValidator.afterPropertiesSet();
