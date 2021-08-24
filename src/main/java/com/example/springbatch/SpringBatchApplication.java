@@ -1,19 +1,18 @@
 package com.example.springbatch;
 
+import com.example.springbatch.listener.JobLoggerAnnotationListener;
+import com.example.springbatch.listener.JobLoggerListener;
+import com.example.springbatch.parameter.DailyJobTimestamper;
+import com.example.springbatch.validator.ParameterValidator;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.CompositeJobParametersValidator;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.listener.JobListenerFactoryBean;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.boot.SpringApplication;
@@ -83,6 +82,8 @@ public class SpringBatchApplication {
                 .start(step())
                 .validator(validator()) /* 검증 추가 */
                 .incrementer(new DailyJobTimestamper()) /* 파라미터 자동 증가 */
+                .listener(new JobLoggerListener()) /* 리스너 추가 */
+                .listener(JobListenerFactoryBean.getListener(new JobLoggerAnnotationListener())) /* 리스너 추가2 */
                 .build(); /* 실제 잡 생성 */
     }
 
