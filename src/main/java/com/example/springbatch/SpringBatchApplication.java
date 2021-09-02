@@ -46,6 +46,7 @@ public class SpringBatchApplication {
 //                    return RepeatStatus.FINISHED;
 //                }).build();
         return this.stepBuilderFactory.get("step1")
+//                                .<String, String>chunk(10)
                                 .tasklet(helloWorldTasklet())
                                 .build();
     }
