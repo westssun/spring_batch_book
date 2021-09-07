@@ -1,9 +1,8 @@
-package com.example.springbatch.parameter;
+package com.example.springbatch.chapter04.parameter;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersIncrementer;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.example.springbatch.jobs;
+package com.example.springbatch.chapter04.jobs;
 
 import java.util.Random;
 

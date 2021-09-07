@@ -1,9 +1,9 @@
 package com.example.springbatch;
 
-import com.example.springbatch.listener.JobLoggerAnnotationListener;
-import com.example.springbatch.listener.JobLoggerListener;
-import com.example.springbatch.parameter.DailyJobTimestamper;
-import com.example.springbatch.validator.ParameterValidator;
+import com.example.springbatch.chapter04.listener.JobLoggerAnnotationListener;
+import com.example.springbatch.chapter04.listener.JobLoggerListener;
+import com.example.springbatch.chapter04.parameter.DailyJobTimestamper;
+import com.example.springbatch.chapter04.validator.ParameterValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

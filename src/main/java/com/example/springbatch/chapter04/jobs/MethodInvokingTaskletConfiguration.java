@@ -1,6 +1,6 @@
-package com.example.springbatch.jobs;
+package com.example.springbatch.chapter04.jobs;
 
-import com.example.springbatch.service.CustomService;
+import com.example.springbatch.chapter04.service.CustomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;

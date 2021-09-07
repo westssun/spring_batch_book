@@ -1,10 +1,8 @@
-package com.example.springbatch.validator;
+package com.example.springbatch.chapter04.validator;
 
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.JobParametersValidator;
-import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
 public class ParameterValidator implements JobParametersValidator {

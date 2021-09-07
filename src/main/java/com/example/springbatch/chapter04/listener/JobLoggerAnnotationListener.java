@@ -1,7 +1,6 @@
-package com.example.springbatch.listener;
+package com.example.springbatch.chapter04.listener;
 
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.annotation.AfterJob;
 import org.springframework.batch.core.annotation.BeforeJob;
 

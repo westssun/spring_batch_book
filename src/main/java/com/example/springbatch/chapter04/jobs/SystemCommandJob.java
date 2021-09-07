@@ -1,4 +1,4 @@
-package com.example.springbatch.jobs;
+package com.example.springbatch.chapter04.jobs;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
