@@ -1,4 +1,4 @@
-package com.example.chapter04;
+package com.example.chapter04.service;
 
 import java.util.Random;
 
