@@ -18,6 +18,11 @@ public class CustomBatchConfigurer extends DefaultBatchConfigurer {
      * 메서드 재정의
      * DefaultBatchConfigurer.createJobRepository()
      * DefaultBatchConfigurer 가 실제로 JobRepository 를 생성할때 사용하는 메서드
+     *
+     * DefaultBatchConfigurer 안의 스프링 컨테이너가 빈 정의로 직접 호출하지 않는다.
+     * return factory.getObject();
+     * jobLauncher.afterPropertiesSet();
+     * 등을 호출하여 처리한다.
      * @return
      * @throws Exception
      */
