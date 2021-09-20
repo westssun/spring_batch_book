@@ -10,6 +10,11 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
+/**
+ * JobExplorer
+   JObExplorer 는 JobRepository 가 다루는 데이터와 동일한 데이터를 읽기 전용으로만 보는 뷰이므로,
+   기본적인 데이터 계층은 JobRepository 와 JobExplorer 간에 공유되는 동일한 공통 DAO 집합이다.
+ */
 public class ExploringTasklet implements Tasklet {
     private JobExplorer explorer;
 
